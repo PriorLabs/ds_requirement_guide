@@ -1,0 +1,4 @@
+.pytest_cache
+src/__pycache__
+src/data_processing/__pycache__
+tests/__pycache__
