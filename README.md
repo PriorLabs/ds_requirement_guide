@@ -1,10 +1,29 @@
 # Dataset Integration Guide
 
-This guide outlines the requirements for providing datasets to ensure seamless integration with our machine learning pipeline. The minimal working example notebook is `main.ipynb`, and you should implement your datasets in the `custom_datamodule`.
+Welcome! This guide explains how to prepare and provide your datasets for seamless integration with our machine learning pipeline, which ultimately uses our TabPFN model. To ensure compatibility, we'll use XGBoost for initial testing and benchmarking.
+
+**Key Files & Workflow:**
+
+1.  **Implement Your Dataset Loader:**
+    * You'll primarily work in `src/data_processing/custom_datamodule.py`. This is where you'll implement the logic to load and structure your datasets according to the `BaseDataModule` concept (see the provided skeleton code).
+2.  **Test Your Implementation:**
+    * Use the `minimal_example.ipynb` notebook to test your dataset integration. You can modify this notebook or create a new one.
+    * This notebook runs XGBoost. Since XGBoost shares a similar scikit-learn interface with our TabPFN model, this helps ensure smooth integration with TabPFN. It also allows you to compare results with your existing codebase if you also use XGBoost.
+3.  **Run Automated Checks:**
+    * Execute `pytest` to run automated tests. These tests quickly verify if your data is in the correct format.
+4.  **Storing Data:**
+    * A `data/` folder is included in the repository for your datasets.
+    * If your datasets are too large for the repository, please provide a download link or clear instructions on how to access them.
+
+**Customization (If Needed):**
+
+* **Result Aggregation:** If you require specific ways to aggregate results across datasets (beyond the default average), implement your logic in `src/utils.py`. The `benchmark_datasets()` function currently averages metrics.
+* **Additional Metrics:** If you need metrics not already included, you can add them by editing `MetricType` in `src/metrics.py`.
 
 ## Dataset Requirements for Pipeline Integration
 
-To ensure seamless integration with our machine learning pipeline, which primarily utilizes XGBoost for modeling, please adhere to the following requirements when providing your datasets:
+To ensure your datasets work flawlessly with our pipeline, please follow these requirements. We've marked requirements as **(Essential)** or **(Nice-to-have)**.
+
 
 ### 1. Data Structure & Format: (Essential)
 
@@ -44,4 +63,4 @@ To ensure seamless integration with our machine learning pipeline, which primari
 
 ### 5. Verification (Recommended):
 
-* To ensure data compatibility, we recommend running a baseline XGBoost model on your end using the provided skeleton pipeline code and comparing the results (e.g., average AUROC) with a run performed on our end. This helps quickly identify any potential discrepancies or issues with the data format or content.
+* To ensure data compatibility, we recommend running a baseline XGBoost model on your end using the provided skeleton pipeline code and comparing the results (e.g., average AUROC) with a run performed on your existing codebase. This helps quickly identify any potential discrepancies or issues with the data format or content.
