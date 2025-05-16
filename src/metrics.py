@@ -46,16 +46,17 @@ def compute_roc_auc(y_true, y_pred_proba, multi_class="raise", average="macro") 
     return roc_auc_score(y_true, y_pred_proba, multi_class="ovr", average="macro")
 
 def compute_log_loss(y_true, y_pred_proba) -> float:
+    y_pred_proba = np.clip(y_pred_proba, 1e-15, 1 - 1e-15)
     return log_loss(y_true, y_pred_proba, labels=np.unique(y_true))
 
 def compute_f1(y_true, y_pred, average="macro") -> float:
     return f1_score(y_true, y_pred, average=average)
 
 def compute_rmse(y_true, y_pred) -> float:
-    return mean_squared_error(y_true, y_pred, squared=False)
+    return np.sqrt(mean_squared_error(y_true, y_pred))
 
 def compute_mse(y_true, y_pred) -> float:
-    return mean_squared_error(y_true, y_pred, squared=True)
+    return mean_squared_error(y_true, y_pred)
 
 def compute_mae(y_true, y_pred) -> float:
     return mean_absolute_error(y_true, y_pred)

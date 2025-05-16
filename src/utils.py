@@ -39,10 +39,13 @@ def train_and_predict_single_dataset(
 
         model.fit(X_train, y_train_enc)
 
-        y_pred_enc = model.predict(X_test)
-        y_pred_proba = model.predict_proba(X_test)
+        y_pred = model.predict(X_test)
+        if is_classifier(model):
+            y_pred_proba = model.predict_proba(X_test)
+        else:
+            y_pred_proba = None
 
-        return y_test_enc, y_pred_enc, y_pred_proba
+        return y_test_enc, y_pred, y_pred_proba
     except Exception as exc:  # pragma: no cover (debug aid)
         warnings.warn(f"Error during single‑dataset fit/predict: {exc}")
         return np.array([]), np.array([]), np.array([])
