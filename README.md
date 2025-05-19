@@ -11,9 +11,9 @@ Welcome! This guide explains how to prepare and provide your datasets for seamle
     * This notebook runs XGBoost. Since XGBoost shares a similar scikit-learn interface with our TabPFN model, this helps ensure smooth integration with TabPFN. It also allows you to compare results with your existing codebase if you also use XGBoost.
 3.  **Run Automated Checks:**
     * Execute `pytest` to run automated tests. These tests quickly verify if your data is in the correct format.
-4.  **Storing Data:**
-    * A `data/` folder is included in the repository for your datasets.
-    * If your datasets are too large for the repository, please provide a download link or clear instructions on how to access them.
+4.  **Transferring Data:**
+    * Please upload both the datasets and the code used to implement the DataModule (following the format outlined above) to an S3 bucket.
+    * Share the S3 bucket link along with any necessary access instructions.
 
 **Customization (If Needed):**
 
